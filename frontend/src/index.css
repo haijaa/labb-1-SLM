@@ -20,6 +20,11 @@ code {
   cursor: pointer;
 }
 
+.hover-underline:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 * {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

@@ -5,12 +5,21 @@ import { Icon } from "@mdi/react";
 import {
   mdiArrowLeftThinCircleOutline,
   mdiArrowRightThinCircleOutline,
-  mdiRotate3dVariant,
 } from "@mdi/js";
 import { useState, useEffect } from "react";
 import Modal from "./modal";
+import Random from "./Components/Random";
+import Publisher from "./Components/Publisher";
 
 export default function App() {
+  useEffect(() => {
+    fetch("http://localhost:3000/api")
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      });
+  }, []);
+
   const testObject = [
     {
       character: "Wolverine",
@@ -42,31 +51,17 @@ export default function App() {
     setCurrentIndex((i) => (i === testObject.length - 1 ? 0 : i + 1));
   };
 
-  const RandomMagazine = () => {
-    const currentIndex = Math.floor(Math.random() * testObject.length);
-    setCurrentIndex(currentIndex);
-  };
-
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((result) => {
-        alert(`Hello ${result.hello}!`);
-      });
-  }, []);
-
   return (
     <>
       <div className="App bg-black text-white">
         <div>
           <div className="flex justify-between mb-10">
-            <div
-              className="flex items-center mt-10 ml-10 hover"
-              onClick={RandomMagazine}
-            >
-              <Icon path={mdiRotate3dVariant} size={2} />
-              <p>Random magazine</p>
-            </div>
+            <Random
+              testObject={testObject}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+            />
+            <Publisher />
             <Modal />
           </div>
         </div>
