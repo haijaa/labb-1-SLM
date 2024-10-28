@@ -32,11 +32,14 @@ export default function Modal() {
         publisherid,
       }),
     };
-    console.log(postOptions);
-    fetch("/api/post", postOptions)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-    window.location.reload();
+    try {
+      console.log(postOptions);
+      await fetch("/api/post", postOptions)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    } finally {
+      window.location.reload();
+    }
   };
 
   return (
