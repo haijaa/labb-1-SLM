@@ -23,29 +23,6 @@ export default function App() {
       });
   }, []);
 
-  const FetchAll = async () => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((result) => {
-        setAllComics(result);
-      });
-  };
-
-  const FetchMarvel = async () => {
-    fetch("/api/marvel")
-      .then((response) => response.json())
-      .then((result) => {
-        setAllComics(result);
-      });
-  };
-  const FetchDc = async () => {
-    fetch("/api/dc")
-      .then((response) => response.json())
-      .then((result) => {
-        setAllComics(result);
-      });
-  };
-
   const SelectPreviousComic = () => {
     setCurrentIndex((i) => (i === allComics.length - 1 ? 0 : i + 1));
   };
@@ -64,18 +41,6 @@ export default function App() {
               currentIndex={currentIndex}
               setCurrentIndex={setCurrentIndex}
             />
-            <div className="flex justify-between min-w-72 mt-10 text-lg">
-              <p className="hover-underline" onClick={FetchAll}>
-                Show all
-              </p>
-              |
-              <p className="hover-underline" onClick={FetchMarvel}>
-                Marvel
-              </p>
-              <p className="hover-underline" onClick={FetchDc}>
-                DC
-              </p>
-            </div>
             <Modal />
           </div>
         </div>
