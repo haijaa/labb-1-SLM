@@ -2,9 +2,9 @@ import { mdiRotate3dVariant } from "@mdi/js";
 import { Icon } from "@mdi/react";
 import PropTypes from "prop-types";
 
-export default function RandomMagazine({ testObject, setCurrentIndex }) {
+export default function RandomMagazine({ allComics, setCurrentIndex }) {
   const RandomMagazine = () => {
-    const currentIndex = Math.floor(Math.random() * testObject.length);
+    const currentIndex = Math.floor(Math.random() * allComics.length);
     setCurrentIndex(currentIndex);
   };
   return (
@@ -19,7 +19,7 @@ export default function RandomMagazine({ testObject, setCurrentIndex }) {
 }
 
 RandomMagazine.propTypes = {
-  testObject: PropTypes.object.isRequired,
+  allComics: PropTypes.array.isRequired,
   currentIndex: PropTypes.number.isRequired,
   setCurrentIndex: PropTypes.func.isRequired,
 };

@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 
 export default function Modal() {
   const [showModal, setShowModal] = React.useState(false);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [character, setCharacter] = useState("");
+  const [publisherid, setPublisherid] = useState("");
+  const [publisher, setPublisher] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/publisher")
+      .then((response) => response.json())
+      .then((data) => {
+        setPublisher(data);
+      });
+  }, []);
+
+  const PostMagazine = async () => {
+    const postOptions = {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        title,
+        description,
+        image,
+        character,
+        publisherid,
+      }),
+    };
+    console.log(postOptions);
+    fetch("/api/post", postOptions)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    window.location.reload();
+  };
+
   return (
     <>
       <div
@@ -21,19 +56,23 @@ export default function Modal() {
               <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                 <h3 className="text-3xl font-semibold">Add a magazine</h3>
               </div>
-              <div className="relative p-6 flex-auto">
+              <div className="relative p-6 flex-auto text-black">
                 <div>
                   <p>Title</p>
                   <input
                     type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     placeholder="Title..."
-                    className="rounded-sm h-10"
+                    className="rounded-sm h-10 color-black"
                   />
                 </div>
                 <div>
                   <p>Picture</p>
                   <input
                     type="text"
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
                     placeholder="Cover..."
                     className="rounded-sm h-10"
                   />
@@ -42,17 +81,43 @@ export default function Modal() {
                   <p>Description</p>
                   <input
                     type="text"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description..."
                     className="rounded-sm h-10"
                   />
                 </div>
                 <div>
-                  <p>Character (optional)</p>
+                  <p>Character</p>
                   <input
                     type="text"
+                    value={character}
+                    onChange={(e) => setCharacter(e.target.value)}
                     placeholder="Character..."
                     className="rounded-sm h-10"
                   />
+                </div>
+                <div>
+                  <p>Publisher</p>
+                  {/* <input
+                    type="text"
+                    value={publisherid}
+                    onChange={(e) => setPublisherid(e.target.value)}
+                    placeholder="Character..."
+                    className="rounded-sm h-10"
+                  /> */}
+                  <select
+                    value={publisherid}
+                    onChange={(event) => setPublisherid(event.target.value)}
+                    className="rounded-sm h-10"
+                  >
+                    <option value="">Select a publisher</option>{" "}
+                    {publisher.map((pub) => (
+                      <option key={pub.id} value={pub.id}>
+                        {pub.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
@@ -67,7 +132,10 @@ export default function Modal() {
                 <button
                   className="bg-green-500 text-white active:bg-emerald-600 text-sm px-6 py-2 w-1/2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {
+                    setShowModal(false);
+                    PostMagazine();
+                  }}
                 >
                   Add
                 </button>
