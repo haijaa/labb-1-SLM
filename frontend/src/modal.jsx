@@ -56,7 +56,8 @@ export default function Modal() {
               <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                 <h3 className="text-3xl font-semibold">Add a magazine</h3>
               </div>
-              <div className="relative p-6 flex-auto text-black">
+              <div className="relative p-6 flex-auto text-white">
+                {image && <img src={image} className="max-h-62 max-w-60" />}
                 <div>
                   <p>Title</p>
                   <input
@@ -64,7 +65,7 @@ export default function Modal() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Title..."
-                    className="rounded-sm h-10 color-black"
+                    className="rounded-sm h-10 text-black"
                   />
                 </div>
                 <div>
@@ -74,7 +75,7 @@ export default function Modal() {
                     value={image}
                     onChange={(e) => setImage(e.target.value)}
                     placeholder="Cover..."
-                    className="rounded-sm h-10"
+                    className="rounded-sm h-10 textBlack"
                   />
                 </div>
                 <div>
@@ -84,7 +85,7 @@ export default function Modal() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description..."
-                    className="rounded-sm h-10"
+                    className="rounded-sm h-10 textBlack"
                   />
                 </div>
                 <div>
@@ -94,22 +95,15 @@ export default function Modal() {
                     value={character}
                     onChange={(e) => setCharacter(e.target.value)}
                     placeholder="Character..."
-                    className="rounded-sm h-10"
+                    className="rounded-sm h-10 textBlack"
                   />
                 </div>
                 <div>
                   <p>Publisher</p>
-                  {/* <input
-                    type="text"
-                    value={publisherid}
-                    onChange={(e) => setPublisherid(e.target.value)}
-                    placeholder="Character..."
-                    className="rounded-sm h-10"
-                  /> */}
                   <select
                     value={publisherid}
                     onChange={(event) => setPublisherid(event.target.value)}
-                    className="rounded-sm h-10"
+                    className="rounded-sm h-10 textBlack"
                   >
                     <option value="">Select a publisher</option>{" "}
                     {publisher.map((pub) => (
